@@ -204,3 +204,156 @@ if(currentStatus=='pending')
 }
 
 /// all the above string like pending and completed in if condtion  comes throug so there is 0 change more making spelling mistake and it also give a drop down list so that  we can select from the custom type we made
+
+//===========================================================
+
+//part 2
+// function overloading
+// here the same funtion is used with string and number ,so + operator will get into error when checking the string case so we have to put an additonal conditon to handle the case of string . Here it is done by adding a if condition and checking if one of it  is a string ,  if its string then it will concate and return the resulted string
+
+function add(num1:number|string,num2:number|string):string|number{
+  if(typeof num1=='string' || typeof num2=='string'){
+    return num1 + '' + num2
+  }
+  
+  return num1+num2
+}
+
+add(2,2)//4
+add("2","2") //22
+
+// But this case is not a good apprach because we alreduy put a lot of code  and repeated many code which made it messy 
+
+//to handle this we do function overloading
+// we use "any" here to do this
+// if we use any ts will loose it powers and it will act like plain js
+
+ function sub(num1:any,num2:any):any{
+ return num1-num2
+ }
+sub(2,2);
+sub("2","2")
+sub({},[])
+// here it still dont know that if the type is string then it should give string as output . so we have to mention it
+
+function addition(num1:number,num2:number):number;
+function addition(num1:string,num2:string):string;
+function addition(num1:any,num2:any){
+  return num1+num2
+}
+addition(2,2);
+addition("2","3")
+// in this case even though we use any, but still it can only use string and number because we  speciefied it abovee(overloading)
+
+//still it is not  a good approach
+
+
+
+
+
+
+// for overcomming the above issue we have Generic in typescript
+
+//Generics
+
+function getAge(age:string |number):string|number{
+  return age
+}
+
+getAge(23);
+getAge("43")
+
+//the same code can be writtern in Generic  mentioned below
+//code which have <> is called generic
+// the below T is a varaible which we decalre  to mention types and this type is mentione in other place
+
+
+function getSalary<T>(salary:T):T{
+  return salary
+}
+getSalary(399999)
+getSalary("399999")
+
+// here what happend is ts automatically take the type whicj we pass as argument . we can se this if we hover on tp of fuction call then we can see the type of the data which we pass
+
+
+
+// if we want  to tell that in funciton call area and not depend on the ts then we have to use the generic symbol in function call area
+//Eg==> getAge<string>("2");    getAge:<number>(5)
+
+
+
+
+
+// type TutorDetail={
+//   name:string;
+//   age:number
+// }
+// type Admin={
+//   firstname:string;
+//   role:string
+// }
+
+// const tutorDetail={
+//   name:"Instructro",
+//   age:34
+// }
+
+// const admin={
+//   firstname:"john Doe",
+//   role:"admin"
+// }
+
+// function getDetails<T>(details:T):T{
+//   return details;
+// }
+// const tutorvalue = getDetails<TutorDetail>(tutorDetail)
+// const adminvalue = getDetails<Admin>(admin)
+
+// tutorDetail.age;
+// admin.firstname;
+
+// All this came by suggetion because we used generic
+// so whats happening here is we created 2 obj named tutordetail and admin and also created 2 type called TutorDetails and Admin . Here we only have one functio to return the details of both the obj but both have differetn key with differnt type  so we only can overoad or  use generic and we used generic here so in the function call of tutor i mentioned that the type of getDetails is TutorDetails and this is recieved in the fumction definiton by <T> so this T will take TutorDetails and only return things related to it  and in antother function call i mentioned type as Admin so <T> will take Admin as  its type
+
+
+
+
+// take the case of this below  object
+
+// typeTutorDetails={
+//   nameL:"Anumod",
+//   age:23,
+// }
+
+// type Admin={
+//   name:"John",
+//   age:44,
+//   role:"admin"
+// }
+//you can see that here both the admin and the tutor have nama and age same only the extra role fied is  extra in  admin, so this name and age are repeating and we can avoid this repeatition in ts
+
+//we can overcome by the below  method
+
+type TutorDetail={
+  name:string;
+  age:number
+}
+type Admin=TutorDetail&{  
+  role:string
+}
+const tutorDetails={
+  name:"Anumod",
+  age:23,
+}
+
+const admin={
+  name:"John",
+  age:44,
+  role:"admin"
+}
+
+//this is how we do using  type 
+// if we want to do the same thing using interface  
+// interface Admin extends TurorDetail{
+//}
