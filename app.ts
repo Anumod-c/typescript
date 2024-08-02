@@ -192,18 +192,18 @@ let result=returnType(typeDetails);
 
 //named type or custom types
 
-type StatusType='pending' |'completed'|'failed';
-type ToggleSwitch = 'on' | 'off';
-let toggleSwitch : ToggleSwitch='off'
-toggleSwitch='on'
+// type StatusType='pending' |'completed'|'failed';
+// type ToggleSwitch = 'on' | 'off';
+// let toggleSwitch : ToggleSwitch='off'
+// toggleSwitch='on'
 
-let currentStatus :StatusType="pending"
-if(currentStatus=='pending')
-{
-  currentStatus='completed'
-}
+// let currentStatus :StatusType="pending"
+// if(currentStatus=='pending')
+// {
+//   currentStatus='completed'
+// }
 
-/// all the above string like pending and completed in if condtion  comes throug so there is 0 change more making spelling mistake and it also give a drop down list so that  we can select from the custom type we made
+// all the above string like pending and completed in if condtion  comes throug so there is 0 change more making spelling mistake and it also give a drop down list so that  we can select from the custom type we made
 
 //===========================================================
 
@@ -357,3 +357,17 @@ const admin={
 // if we want to do the same thing using interface  
 // interface Admin extends TurorDetail{
 //}
+
+//if we dont want to add and extra field but we need all the things used in Tutor then we can simple do 
+// type Admin = TutorDetails 
+
+//as simple as that . But  if we want to achive this in interface then we have to do
+// interface Admin extends TutorDetail {}
+
+
+
+
+
+
+
+
